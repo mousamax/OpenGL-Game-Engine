@@ -56,13 +56,20 @@ namespace our {
                 glDisable(GL_DEPTH_TEST);
             glDepthFunc(depthTesting.function);
             // -- blending
-
+             if(blending.enabled) {
+                glEnable(GL_BLEND);
+                glBlendEquation(blending.equation);
+                glBlendFunc(blending.sourceFactor, blending.destinationFactor);
+                glBlendColor(blending.constantColor.r, blending.constantColor.g, blending.constantColor.b, blending.constantColor.a);
+            } else {
+                glDisable(GL_BLEND);
+            }
             // -- color mask
-            //glColorMask — enable and disable writing of frame buffer color components
+            //glColorMask ï¿½ enable and disable writing of frame buffer color components
             //If red is GL_FALSE, no change is made to the red component of any pixel in any of the color buffers, 
             //regardless of the drawing operation attempted.
             glColorMask(colorMask.r, colorMask.g, colorMask.b, colorMask.a);
-            //glDepthMask — enable or disable writing into the depth buffer
+            //glDepthMask ï¿½ enable or disable writing into the depth buffer
             if (depthMask)
                 glDepthMask(GL_TRUE);
             else
