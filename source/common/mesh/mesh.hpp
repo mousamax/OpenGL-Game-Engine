@@ -43,9 +43,9 @@ namespace our
             glGenBuffers(1, &VBO);
             glBindBuffer(GL_ARRAY_BUFFER, VBO);
             glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), vertices.data(), GL_STATIC_DRAW);
-            // // enable vertices (allows them to accept data)
-            // // then Specify the layout of the vertex data
-            // // if false data is already normalized
+            // enable vertices (allows them to accept data)
+            // then Specify the layout of the vertex data
+            // if false data is already normalized
             glVertexAttribPointer(ATTRIB_LOC_POSITION, 3, GL_FLOAT, false, sizeof(Vertex), (void *)offsetof(Vertex, position));
             glEnableVertexAttribArray(ATTRIB_LOC_POSITION);
 
