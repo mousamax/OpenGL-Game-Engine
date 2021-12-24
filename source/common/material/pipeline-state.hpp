@@ -70,10 +70,7 @@ namespace our {
             //regardless of the drawing operation attempted.
             glColorMask(colorMask.r, colorMask.g, colorMask.b, colorMask.a);
             //glDepthMask � enable or disable writing into the depth buffer
-            if (depthMask)
-                glDepthMask(GL_TRUE);
-            else
-                glDepthMask(GL_FALSE);
+            glDepthMask(depthMask);
         }
 
         // Given a json object, this function deserializes a PipelineState structure
