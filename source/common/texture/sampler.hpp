@@ -4,56 +4,72 @@
 #include <json/json.hpp>
 #include <glm/vec4.hpp>
 
-namespace our {
+namespace our
+{
 
     // This class defined an OpenGL sampler
-    class Sampler {
-        // The OpenGL object name of this sampler 
+    class Sampler
+    {
+        // The OpenGL object name of this sampler
         GLuint name;
+
     public:
-        // This constructor creates an OpenGL sampler and saves its object name in the member variable "name" 
-        Sampler() {
+        // This constructor creates an OpenGL sampler and saves its object name in the member variable "name"
+        Sampler()
+        {
             //TODO: Complete this function
+            glGenSamplers(1, &name);
         };
 
         // This deconstructor deletes the underlying OpenGL sampler
-        ~Sampler() { 
+        ~Sampler()
+        {
             //TODO: Complete this function
-         }
+            glDeleteSamplers(1, &name);
+        }
 
         // This method binds this sampler to the given texture unit
-        void bind(GLuint textureUnit) const {
+        void bind(GLuint textureUnit) const
+        {
             //TODO: Complete this function
+            glBindSampler(0, name);
         }
 
         // This static method ensures that no sampler is bound to the given texture unit
-        static void unbind(GLuint textureUnit){
+        static void unbind(GLuint textureUnit)
+        {
             //TODO: Complete this function
+            glBindSampler(textureUnit, 0);
         }
 
         // This function sets a sampler paramter where the value is of type "GLint"
         // This can be used to set the filtering and wrapping parameters
-        void set(GLenum parameter, GLint value) const {
+        void set(GLenum parameter, GLint value) const
+        {
             //TODO: Complete this function
+            glSamplerParameteri(name, parameter, value);
         }
 
         // This function sets a sampler paramter where the value is of type "GLfloat"
         // This can be used to set the "GL_TEXTURE_MAX_ANISOTROPY_EXT" parameter
-        void set(GLenum parameter, GLfloat value) const {
+        void set(GLenum parameter, GLfloat value) const
+        {
             //TODO: Complete this function
+            glSamplerParameterf(name,parameter,value);
         }
 
         // This function sets a sampler paramter where the value is of type "GLfloat[4]"
         // This can be used to set the "GL_TEXTURE_BORDER_COLOR" parameter
-        void set(GLenum parameter, glm::vec4 value) const {
+        void set(GLenum parameter, glm::vec4 value) const
+        {
             glSamplerParameterfv(name, parameter, &(value.r));
         }
 
         // Given a json object, this function deserializes the sampler state
-        void deserialize(const nlohmann::json& data);
+        void deserialize(const nlohmann::json &data);
 
-        Sampler(const Sampler&) = delete;
-        Sampler& operator=(const Sampler&) = delete;
+        Sampler(const Sampler &) = delete;
+        Sampler &operator=(const Sampler &) = delete;
     };
 
 }
