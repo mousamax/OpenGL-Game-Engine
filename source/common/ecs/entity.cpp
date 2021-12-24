@@ -14,7 +14,7 @@ namespace our {
         //TODO: Write this function
         // if already at world, return identity
         if (parent == nullptr) {
-            return glm::mat4(1.0f);
+            return localTransform.toMat4();
         }
 
         // if not at world, get the proper transform
