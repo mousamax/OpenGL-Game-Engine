@@ -59,9 +59,9 @@ namespace our
         // When we bind the texture, we also bind it to the active unit. So this texture is now bound to unit 0.
         texture->bind();
         // To tell OpenGL which sampler object we will use for this unit, we bind the sampler to unit 0 (which is specified by the 1st parameter of the following function).
-        sampler->bind(GL_TEXTURE0);
+        sampler->bind(0);
         // send the unit number to the uniform variable "tex"
-        shader->set("tex", GL_TEXTURE0);
+        shader->set("tex", 0);
     }
 
     // This function read the material data from a json object
