@@ -82,7 +82,7 @@ namespace our
                       {
                           //TODO: Finish this function
                           // HINT: the following return should return true "first" should be drawn before "second".
-                          return first.center.z < second.center.z;
+                          return first.center.z * cameraForward.z < second.center.z * cameraForward.z;
                       });
 
             //TODO: Get the camera ViewProjection matrix and store it in VP
