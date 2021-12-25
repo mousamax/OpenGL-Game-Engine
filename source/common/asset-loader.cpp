@@ -13,16 +13,16 @@ namespace our
 {
 
     // Where we define all the asset maps since static member variables must be defined in a source file
-    template <>
-    std::unordered_map<std::string, ShaderProgram *> AssetLoader<ShaderProgram>::assets;
-    template <>
-    std::unordered_map<std::string, Texture2D *> AssetLoader<Texture2D>::assets;
-    template <>
-    std::unordered_map<std::string, Sampler *> AssetLoader<Sampler>::assets;
-    template <>
-    std::unordered_map<std::string, Mesh *> AssetLoader<Mesh>::assets;
-    template <>
-    std::unordered_map<std::string, Material *> AssetLoader<Material>::assets;
+    // template <>
+    // std::unordered_map<std::string, ShaderProgram *> AssetLoader<ShaderProgram>::assets;
+    // template <>
+    // std::unordered_map<std::string, Texture2D *> AssetLoader<Texture2D>::assets;
+    // template <>
+    // std::unordered_map<std::string, Sampler *> AssetLoader<Sampler>::assets;
+    // template <>
+    // std::unordered_map<std::string, Mesh *> AssetLoader<Mesh>::assets;
+    // template <>
+    // std::unordered_map<std::string, Material *> AssetLoader<Material>::assets;
     template<>
     // This will load all the shaders defined in "data"
     // data must be in the form:
