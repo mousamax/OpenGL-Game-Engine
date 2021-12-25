@@ -54,11 +54,13 @@ namespace our
         // DONE#TODO: Write this function
         TintedMaterial::setup();
         shader->set("alphaThreshold", alphaThreshold);
-        // First, we set the active texture unit. Here, we pick unit 0 which is actually the active unit by default but we still wrote this line for demonstration.
+        // First, we set the active texture unit. 
+        // Here, we pick unit 0 which is actually the active unit by default but we still wrote this line for demonstration.
         glActiveTexture(GL_TEXTURE0);
         // When we bind the texture, we also bind it to the active unit. So this texture is now bound to unit 0.
         texture->bind();
-        // To tell OpenGL which sampler object we will use for this unit, we bind the sampler to unit 0 (which is specified by the 1st parameter of the following function).
+        // To tell OpenGL which sampler object we will use for this unit,
+        // we bind the sampler to unit 0 (which is specified by the 1st parameter of the following function).
         sampler->bind(0);
         // send the unit number to the uniform variable "tex"
         shader->set("tex", 0);
