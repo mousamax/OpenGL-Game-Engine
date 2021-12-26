@@ -80,12 +80,12 @@ namespace our
             // we need to sort the transparent commands based on the distance to the camera
             // farthest objects should be drawn first
             // we compute the distance based on the z component of the camera direction vector
-            glm::vec3 cameraForward = camera->getOwner()->getLocalToWorldMatrix() * glm::vec4(0.0f, 0.0f, 1.0f, 0.0f);
+            glm::vec3 cameraForward = camera->getOwner()->getLocalToWorldMatrix() * glm::vec4(0.0f, 0.0f, -1.0f, 0.0f);
             std::sort(transparentCommands.begin(), transparentCommands.end(), [cameraForward](const RenderCommand &first, const RenderCommand &second)
                       {
                           //TODO: Finish this function
                           // HINT: the following return should return true "first" should be drawn before "second".
-                          return first.center.z * cameraForward.z < second.center.z * cameraForward.z;
+                          return first.center.z * cameraForward.z > second.center.z * cameraForward.z;
                       });
 
             //TODO: Get the camera ViewProjection matrix and store it in VP
@@ -113,8 +113,8 @@ namespace our
             for (auto command : opaqueCommands)
             {
                 command.material->setup();
-                command.material->shader->set("transform",  VP * command.localToWorld);
-                
+                command.material->shader->set("transform", VP * command.localToWorld);
+
                 command.mesh->draw();
             }
             // we draw the transparent commands after opaque commands
@@ -124,8 +124,8 @@ namespace our
             for (auto command : transparentCommands)
             {
                 command.material->setup();
-                command.material->shader->set("transform",  VP * command.localToWorld);
-                
+                command.material->shader->set("transform", VP * command.localToWorld);
+
                 command.mesh->draw();
             }
         }

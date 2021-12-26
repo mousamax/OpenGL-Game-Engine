@@ -37,7 +37,7 @@ namespace our {
         // then you can use glm::lookAt
         glm::vec3 eye_cam = M * glm::vec4(0,0,0,1);
         glm::vec3 center_cam = M * glm::vec4(0,0,-1,1);
-        glm::vec3 up_cam = M *glm::vec4(0,1,0,1);
+        glm::vec3 up_cam = M *glm::vec4(0,1,0,0);
 
 
         return glm::lookAt(eye_cam, center_cam, up_cam);
@@ -54,7 +54,7 @@ namespace our {
         float aspect_ratio = viewportSize.x / (float)viewportSize.y;
         if (cameraType == CameraType::ORTHOGRAPHIC) {
 
-            return glm::ortho(- orthoHeight*aspect_ratio/2, orthoHeight*aspect_ratio/2, -orthoHeight/2, orthoHeight/2);
+            return glm::ortho(- orthoHeight*aspect_ratio/2, orthoHeight*aspect_ratio/2, -orthoHeight/2, orthoHeight/2, near, far);
         } else {
             return glm::perspective(fovY, aspect_ratio, near, far);
         }
