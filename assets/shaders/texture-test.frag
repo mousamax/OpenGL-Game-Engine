@@ -14,5 +14,7 @@ uniform sampler2D tex;
 void main(){
     //TODO: Change the following line to read the fragment color
     // from the texture at the received texture coordinates
-    frag_color = texture(tex,fs_in.tex_coord);
+    frag_color = texture(tex,fs_in.tex_coord); //vec4 because RGBA (4 channels)
+    //tex is the texture sampler which checks the texture binded to it
+    //texture coordinates
 }

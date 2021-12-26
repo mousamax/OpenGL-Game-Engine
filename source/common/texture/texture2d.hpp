@@ -12,7 +12,7 @@ namespace our {
         // This constructor creates an OpenGL texture and saves its object name in the member variable "name" 
         Texture2D() {
             //TODO: Complete this function
-            glGenTextures(1, &name);
+            glGenTextures(1, &name); //generate texture 
         };
 
         // This deconstructor deletes the underlying OpenGL texture
