@@ -1,6 +1,8 @@
 #pragma once
 
 #include "../ecs/component.hpp"
+#include <glm/glm.hpp>
+#include <glm/gtx/hash.hpp>
 
 namespace our {
 
@@ -10,6 +12,9 @@ namespace our {
         POINT,
         SPOT
     };
+    // Since we may want to store colors in bytes instead of floats for efficiency,
+    // we are creating our own 32-bit R8G8B8A8 Color data type with the default GLM precision
+    typedef glm::vec<4, glm::uint8, glm::defaultp> Color;
     // This component adds lighting ability to the owing entity.
     class LightComponent : public Component {
     public:
