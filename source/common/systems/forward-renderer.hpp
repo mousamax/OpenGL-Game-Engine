@@ -113,8 +113,29 @@ namespace our
             for (auto command : opaqueCommands)
             {
                 command.material->setup();
-                command.material->shader->set("transform", VP * command.localToWorld);
-
+                command.material->shader->set("transform", command.localToWorld);
+                // -- for lighting support
+                command.material->shader->set("transform_IT", glm::transpose(glm::inverse(command.localToWorld)));
+                command.material->shader->set("VP", VP);
+                command.material->shader->set("eye", camera->getOwner()->getLocalToWorldMatrix() * glm::vec4(0, 0, 0, 1));
+                //remove this it should be handeld in light component --
+                command.material->shader->set("light_count", 2);
+                command.material->shader->set("sky_light.sky", glm::vec3(0.2, 0.6, 0.8));
+                command.material->shader->set("sky_light.horizon", glm::vec3(0.5, 0.5, 0.5));
+                command.material->shader->set("sky_light.ground", glm::vec3(0.2, 0.7, 0.4));
+                command.material->shader->set("lights[0].type", 2);
+                command.material->shader->set("lights[0].position", glm::vec3(0, 3, 0));
+                command.material->shader->set("lights[0].direction", glm::vec3(0, -1, 0));
+                command.material->shader->set("lights[0].color", glm::vec3(1, 0.9, 0.7));
+                command.material->shader->set("lights[0].attenuation", glm::vec3(0, 0, 1));
+                command.material->shader->set("lights[0].cone_angles", glm::vec2(glm::radians(15.0f), glm::radians(30.0f)));
+                command.material->shader->set("lights[1].type", 0);
+                command.material->shader->set("lights[1].position", glm::vec3(0, 3, 0));
+                command.material->shader->set("lights[1].direction", glm::vec3(-1, 0, 0));
+                command.material->shader->set("lights[1].color", glm::vec3(1, 0.0, 0.0));
+                command.material->shader->set("lights[1].attenuation", glm::vec3(0, 0, 1));
+                command.material->shader->set("lights[1].cone_angles", glm::vec2(glm::radians(15.0f), glm::radians(30.0f)));
+                // --
                 command.mesh->draw();
             }
             // we draw the transparent commands after opaque commands

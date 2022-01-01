@@ -127,10 +127,10 @@ namespace our
         if (!data.is_object())
             return;
         alphaThreshold = data.value("alphaThreshold", 0.0f);
-        albedo_tex = AssetLoader<Texture2D>::get(data.value("albedo_texture", ""));
-        specular_tex = AssetLoader<Texture2D>::get(data.value("specular_texture", ""));
-        roughness_tex = AssetLoader<Texture2D>::get(data.value("roughness_texture", ""));
-        ao_tex = AssetLoader<Texture2D>::get(data.value("ambient_occlusion_texture", ""));
+        albedo_tex = AssetLoader<Texture2D>::get(data.value("albedo-texture", ""));
+        specular_tex = AssetLoader<Texture2D>::get(data.value("specular-texture", ""));
+        roughness_tex = AssetLoader<Texture2D>::get(data.value("roughness-texture", ""));
+        ao_tex = AssetLoader<Texture2D>::get(data.value("ambient-occlusion-texture", ""));
         sampler = AssetLoader<Sampler>::get(data.value("sampler", ""));
     }
 
