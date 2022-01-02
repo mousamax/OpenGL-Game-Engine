@@ -113,8 +113,9 @@ namespace our
             for (auto command : opaqueCommands)
             {
                 command.material->setup();
-                command.material->shader->set("transform", command.localToWorld);
-                // -- for lighting support
+                command.material->shader->set("transform", VP * command.localToWorld);//remove VP for light
+                // -- for lighting support -- //
+                /*
                 command.material->shader->set("transform_IT", glm::transpose(glm::inverse(command.localToWorld)));
                 command.material->shader->set("VP", VP);
                 command.material->shader->set("eye", camera->getOwner()->getLocalToWorldMatrix() * glm::vec4(0, 0, 0, 1));
@@ -135,7 +136,8 @@ namespace our
                 command.material->shader->set("lights[1].color", glm::vec3(1, 0.0, 0.0));
                 command.material->shader->set("lights[1].attenuation", glm::vec3(0, 0, 1));
                 command.material->shader->set("lights[1].cone_angles", glm::vec2(glm::radians(15.0f), glm::radians(30.0f)));
-                // --
+                // -- //
+                */
                 command.mesh->draw();
             }
             // we draw the transparent commands after opaque commands
@@ -151,5 +153,4 @@ namespace our
             }
         }
     };
-
 };

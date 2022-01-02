@@ -22,7 +22,7 @@ namespace our {
         Color color;            // The light color
         glm::vec2 cone_angles;       //define the angle of a spot light’s cone (Spot light only).
 
-        // The ID of this component type is "Mesh Renderer"
+        // The ID of this component type is "Light"
         static std::string getID() { return "Light"; }
 
         // Reads light properties by the names given in the json object
