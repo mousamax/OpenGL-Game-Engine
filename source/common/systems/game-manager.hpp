@@ -15,7 +15,7 @@ namespace our
 	// keep track of the score, time etc... 
 	class GameMananger {
 
-		int score = 0;
+		static int score;
 		Application* app; // The application in which the state runs
 		enum states { MENU, PLAY, GAMEOVER };
 		states currentState;
@@ -61,5 +61,9 @@ namespace our
 			}
 		}
 	};
+
+	int GameMananger::score = 0;
+
+	GameMananger GameMananger::gm;
 
 }
