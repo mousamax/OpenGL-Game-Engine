@@ -1,5 +1,5 @@
 {
-    "start-scene": "main",
+    "start-scene": "menu",
     "window": {
         "title": "Default Game Window",
         "size": {
@@ -124,6 +124,7 @@
         },
         "world": [
             {
+                "name": "player",
                 "position": [ 0, 0, 10 ],
                 "components": [
                     {
@@ -252,6 +253,7 @@
                 ]
             },
             {
+
                 "rotation": [ -45, 0, 0 ],
                 "position": [ 6, 0, 3 ],
                 "components": [

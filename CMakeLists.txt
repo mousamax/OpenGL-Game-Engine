@@ -114,5 +114,5 @@ set(STATES_SOURCES
 # For each example, we add an executable target
 # Each target compiles one example source file and the common & vendor source files
 # Then we link GLFW with each target
-add_executable(GAME_APPLICATION source/main.cpp ${STATES_SOURCES} ${COMMON_SOURCES} ${VENDOR_SOURCES} "source/common/components/light.hpp" "source/common/components/light.cpp" "source/common/systems/game-manager.hpp")
+add_executable(GAME_APPLICATION source/main.cpp ${STATES_SOURCES} ${COMMON_SOURCES} ${VENDOR_SOURCES} "source/common/components/light.hpp" "source/common/components/light.cpp" "source/common/systems/game-manager.hpp" "source/states/menu-state.hpp" "source/common/imgui-utils/utils.hpp")
 target_link_libraries(GAME_APPLICATION glfw)
