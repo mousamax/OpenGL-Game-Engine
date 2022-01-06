@@ -1,7 +1,9 @@
 #pragma once
+#define COIN_SCORE 1
 
 #include "../ecs/world.hpp"
 #include "../components/collision.hpp"
+#include <systems/game-manager.hpp>
 
 #include <glm/glm.hpp>
 #include <glm/gtc/constants.hpp>
@@ -18,15 +20,13 @@ namespace our
     public:
 
         // This should be called every frame to update all entities containing a MovementComponent. 
-        void update(World* world, float deltaTime) {
-            // For each entity in the world
-            // get the current player entity
+        void update(World* world) {
             
-            glm::vec3 playerPosition = vec3(0, 0, 0);
+            glm::vec3 playerPosition = glm::vec3(0, 0, 0);
             float playerRadius = 0;
 
             for(auto entity : world->getEntities()){
-                // get the movement component if it exists
+                // get the current player entity and get its position and radius
                 if (entity->name == "player")
                 {
                     CollisionComponent * collision = entity->getComponent<CollisionComponent>();
@@ -36,25 +36,24 @@ namespace our
                     break;
                 }
             }
-            // get player collision component
-            
-            // get the new radius and new position
 
             for(auto entity : world->getEntities()){
-                // Get the movement component if it exists
+
+                // get all entities that have collision component
                 CollisionComponent* collision = entity->getComponent<CollisionComponent>();
-                // If the movement component exists
+                
                 if(collision){
-                    // Change the position and rotation based on the linear & angular velocity and delta time.
+                    // get the new radius and position of the entity
                     glm::vec3 newPosition = collision->center + glm::vec3(entity->getLocalToWorldMatrix() * glm::vec4(0, 0, 0, 1));
                     float newRadius = collision->radius + glm::length(entity->localTransform.scale);
 
+                    // compare with player position to check if it collides or not
                     if (glm::length(newPosition - playerPosition) < playerRadius + newRadius)
                     {
                         // collision occurred
                         if (entity->name == "coin")
                         {
-                            
+                            our::GameMananger::gm.changeScore(COIN_SCORE);
                             world->markForRemoval(entity);
                         }
                     }
