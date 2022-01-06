@@ -15,7 +15,7 @@ namespace our
 	// keep track of the score, time etc... 
 	class GameMananger {
 
-		int score = 0;
+		static int score;
 		Application* app; // The application in which the state runs
 		enum states { MENU, PLAY, GAMEOVER };
 		states currentState;
@@ -40,12 +40,13 @@ namespace our
 		}
 		void startGame()
 		{
+			if(currentState != our::GameMananger::PLAY)
 			app->changeState("main");
 		}
 		// This should be called every frame to update all entities containing a MovementComponent. 
-		void update(World* world) {
+		void update() {
 
-			if (app->getKeyboard().isPressed(GLFW_KEY_ESCAPE))
+			if (app->getKeyboard().justPressed(GLFW_KEY_ESCAPE))
 			{
 				switch (currentState)
 				{
@@ -61,5 +62,8 @@ namespace our
 			}
 		}
 	};
+	int GameMananger::score = 0;
+
+	GameMananger GameMananger::gm;
 
 }
