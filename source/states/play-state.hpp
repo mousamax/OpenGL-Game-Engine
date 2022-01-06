@@ -40,7 +40,7 @@ class Playstate: public our::State {
         // Here, we just run a bunch of systems to control the world logic
         movementSystem.update(&world, (float)deltaTime);
         cameraController.update(&world, (float)deltaTime);
-        gameManager.update();
+        gameManager.update(deltaTime);
         // And finally we use the renderer system to draw the scene
         auto size = getApp()->getFrameBufferSize();
         renderer.render(&world, glm::ivec2(0, 0), size);
@@ -51,5 +51,17 @@ class Playstate: public our::State {
         cameraController.exit();
         // and we delete all the loaded assets to free memory on the RAM and the VRAM
         our::clearAllAssets();
+    }
+
+    void onImmediateGui() {
+
+        //ImGui::ShowDemoWindow();
+        ImGui::Begin("Game Menu", false);
+
+        ImGui::Text("Turbo Snail!");
+        ImGui::Text("Score: %d", our::GameMananger::gm.score);
+        ImGui::Text("Time: %d", 0);
+
+        ImGui::End();
     }
 };

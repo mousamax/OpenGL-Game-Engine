@@ -34,7 +34,7 @@ class MenuState : public our::State {
         
         // And finally we use the renderer system to draw the scene
         auto size = getApp()->getFrameBufferSize();
-        gameManager.update();
+        gameManager.update(deltaTime);
         renderer.render(&world, glm::ivec2(0, 0), size);
     }
 

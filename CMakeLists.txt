@@ -82,6 +82,8 @@ set(COMMON_SOURCES
         source/common/systems/forward-renderer.hpp
         source/common/systems/free-camera-controller.hpp
         source/common/systems/movement.hpp
+        source/common/systems/collision.hpp
+        source/common/systems/game-manager.hpp
 )
 
 # Define the directories in which to search for the included headers
@@ -101,6 +103,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${PROJECT_SOURCE_DIR}/bin)
 
 set(STATES_SOURCES
         source/states/play-state.hpp
+        source/states/menu-state.hpp
         source/states/mesh-test-state.hpp
         source/states/transform-test-state.hpp
         source/states/pipeline-test-state.hpp
