@@ -66,7 +66,7 @@ uniform SkyLight sky_light;
 void main(){
 
     vec3 normal = normalize(fs_in.normal);//normal on point
-    vec3 view = normalize(fs_in.view);//from camera
+    vec3 view = normalize(fs_in.view);//from camera to POINT
 
     //we read from all texures simultanously as we created different texure units
     vec3 material_albedo = texture(material.albedo, fs_in.tex_coord).rgb;
@@ -84,6 +84,7 @@ void main(){
 
         vec3 light_vec = - light.direction;//as lambart assume light direction from point to light
         if(light.type != DIRECTIONAL){//as DIRECTIONAL has no position and has constant direction
+            //for POINT and SPOT we need to know direction from light as a light ray
             light_vec = normalize(light.position - fs_in.world);
         }
 
@@ -106,7 +107,4 @@ void main(){
 
         frag_color.rgb += (diffuse + specular) * attenuation; // + ambient;
     }
-    //TODO: Modify the following line to compute the fragment color
-    // by multiplying the tint with the vertex color and with the texture color
-    // ---- frag_color = texture(tex,fs_in.tex_coord) * fs_in.color * tint;
 }
