@@ -69,6 +69,17 @@ namespace our
             markedForRemoval.clear();
         }
 
+        // return the entity with name player
+        Entity *getPlayer()
+        {
+            for (auto entity : entities)
+            {
+                if (entity->name == "player")
+                    return entity;
+            }
+            return nullptr;
+        }
+
         //Since the world owns all of its entities, they should be deleted alongside it.
         ~World()
         {
