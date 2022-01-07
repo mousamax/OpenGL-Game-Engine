@@ -96,37 +96,79 @@
         },
         "world": [
             {
-                "position": [ 0, 0, 10 ],
-                "name": "camera",
+                "position": [ 5, 0, 3 ],
+                "name": "player",
                 "components": [
                     {
-                        "type": "Camera"
-                    },
-                    {
-                        "type": "Free Camera Controller"
-                    },
-                    {
-                        "type": "Light",
-                        "lightType": "spot",
-                        "color": [ 0.1, 0.1, 0.3 ],
-                        "attenuation": [ 0, 0, 0.2 ],
-                        "direction": [ 0, -1.0, 0 ],
-                        "cone-angels": [ 15.0, 30.0 ]
+                        "type": "Player Movement"
                     }
                 ],
                 "children": [
                     {
-                        "name": "cube",
-                        "position": [ 1, -1, -1 ],
-                        "rotation": [ 45, 45, 0 ],
-                        "scale": [ 0.1, 0.1, 1.0 ],
+                        "position": [ 0, 5, 10 ],
+                        "components": [
+                            {
+                                "type": "Camera"
+                            }
+                        ]
+                    },
+                    {
+                        "position": [ 0, 0, 0 ],
+                        "name": "player mesh",
                         "components": [
                             {
                                 "type": "Mesh Renderer",
-                                "mesh": "cube",
-                                "material": "moon"
+                                "mesh": "monkey",
+                                "material": "monkey"
+                            },
+                            {
+                                "type": "Collision",
+                                "center": [ 0, 0, 0 ],
+                                "radius": 1
                             }
                         ]
+                    }
+                ]
+            },
+            {
+                "position": [ 4, 0, 0 ],
+                "tag": "coin",
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "sphere",
+                        "material": "monkey"
+                    },
+                    {
+                        "type": "Collision",
+                        "center": [ 0, 0, 0 ],
+                        "radius": 1
+                    },
+                    {
+                        "type": "Movement",
+                        "linearVelocity": [ 0, 0, 0 ],
+                        "angularVelocity": [ 0, 45, 0 ]
+                    }
+                ]
+            },
+            {
+                "position": [ -4, 0, 0 ],
+                "tag": "coin",
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "sphere",
+                        "material": "monkey"
+                    },
+                    {
+                        "type": "Collision",
+                        "center": [ 0, 0, 0 ],
+                        "radius": 1
+                    },
+                    {
+                        "type": "Movement",
+                        "linearVelocity": [ 0, 0, 0 ],
+                        "angularVelocity": [ 0, 45, 0 ]
                     }
                 ]
             },
