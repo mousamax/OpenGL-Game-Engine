@@ -41,7 +41,6 @@ namespace our
             if (!playerMesh)
                 return;
 
-            std::cout << "found player" << std::endl;
             // get the current player entity and get its position and radius
 
             CollisionComponent *collision = playerMesh->getComponent<CollisionComponent>();
@@ -66,7 +65,7 @@ namespace our
                     {
                         std::cout << "collision" << std::endl;
                         // collision occurred
-                        if (entity->name == "coin")
+                        if (entity->tag == "coin")
                         {
                             our::GameMananger::gm.changeScore(COIN_SCORE);
                             world->markForRemoval(entity);
