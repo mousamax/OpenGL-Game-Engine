@@ -17,7 +17,9 @@ namespace our {
         {
             type = LightType::SPOT;
         }
-        color = data.value("color", glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
-        cone_angles = data.value("cone-angels", glm::vec2(1.0f, 1.0f));
+        color = data.value("color", glm::vec3(1.0f, 1.0f, 1.0f));
+        cone_angles = data.value("cone-angels", glm::vec2(glm::radians(15.0f), glm::radians(30.0f)));
+        direction = data.value("direction", glm::vec3(-1.0f,0.0f, 0.0f));
+        attenuation = data.value("attenuation", glm::vec3(0.0f,0.0f, 1.0f));
     }
 }

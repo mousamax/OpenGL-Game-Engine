@@ -2,6 +2,7 @@
 
 #include "../asset-loader.hpp"
 #include "deserialize-utils.hpp"
+#include <iostream>
 
 namespace our
 {
@@ -131,6 +132,7 @@ namespace our
         specular_tex = AssetLoader<Texture2D>::get(data.value("specular-texture", ""));
         roughness_tex = AssetLoader<Texture2D>::get(data.value("roughness-texture", ""));
         ao_tex = AssetLoader<Texture2D>::get(data.value("ambient-occlusion-texture", ""));
+        emission_tex = AssetLoader<Texture2D>::get(data.value("emission-texture", ""));
         sampler = AssetLoader<Sampler>::get(data.value("sampler", ""));
     }
 

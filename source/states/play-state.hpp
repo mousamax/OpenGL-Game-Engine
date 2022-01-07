@@ -26,7 +26,7 @@ class Playstate: public our::State {
 
     void onInitialize() override {
         // First of all, we get the scene configuration from the app config
-        auto& config = getApp()->getConfig()["scene"];
+        auto& config = getApp()->getConfig()["scene1"];
         // If we have assets in the scene config, we deserialize them
         if(config.contains("assets")){
             our::deserializeAllAssets(config["assets"]);
@@ -59,5 +59,17 @@ class Playstate: public our::State {
         cameraController.exit();
         // and we delete all the loaded assets to free memory on the RAM and the VRAM
         our::clearAllAssets();
+    }
+
+    void onImmediateGui() {
+
+        //ImGui::ShowDemoWindow();
+        ImGui::Begin("Game Menu", false);
+
+        ImGui::Text("Turbo Snail!");
+        ImGui::Text("Score: %d", our::GameMananger::gm.score);
+        ImGui::Text("Time: %d", 0);
+
+        ImGui::End();
     }
 };

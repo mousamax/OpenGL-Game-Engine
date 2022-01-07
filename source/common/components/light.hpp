@@ -12,16 +12,14 @@ namespace our {
         POINT,
         SPOT
     };
-    // Since we may want to store colors in bytes instead of floats for efficiency,
-    // we are creating our own 32-bit R8G8B8A8 Color data type with the default GLM precision
-    typedef glm::vec<4, glm::uint8, glm::defaultp> Color;
     // This component adds lighting ability to the owing entity.
     class LightComponent : public Component {
     public:
-        LightType type;         // The current type of light, Possible values are Directional, Point and Spot.
-        Color color;            // The light color
-        glm::vec2 cone_angles;       //define the angle of a spot light’s cone (Spot light only).
-
+        LightType type;             // The current type of light, Possible values are Directional, Point and Spot.
+        glm::vec3 color;            // The light color
+        glm::vec3 direction;        //for directional light
+        glm::vec2 cone_angles;// = glm::vec2(0.0f, 0.0f);      //define the angle of a spot lightâ€™s cone (Spot light only).
+        glm::vec3 attenuation;   
         // The ID of this component type is "Light"
         static std::string getID() { return "Light"; }
 

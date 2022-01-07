@@ -59,10 +59,10 @@ namespace our
                     // get the new radius and position of the entity
                     glm::vec3 newPosition = collision->center + glm::vec3(entity->getLocalToWorldMatrix() * glm::vec4(0, 0, 0, 1));
                     float newRadius = collision->radius * glm::length(entity->localTransform.scale) / 1.732f;
-
                     // compare with player position to check if it collides or not
                     if (glm::length(newPosition - playerPosition) < playerRadius + newRadius)
                     {
+
                         std::cout << "collision" << std::endl;
                         // collision occurred
                         if (entity->tag == "coin")

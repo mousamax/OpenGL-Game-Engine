@@ -24,6 +24,9 @@ namespace our
 		states menu_state = MENU;
 		states play_state = PLAY;
 		states gameover_state = GAMEOVER;
+		//game score
+		static int score;
+		static double timePlayed;
 
 		//this static object can be used by different logic components 
 		static GameMananger gm;
@@ -40,12 +43,16 @@ namespace our
 		}
 		void startGame()
 		{
+			if(currentState != our::GameMananger::PLAY)
 			app->changeState("main");
 		}
 		// This should be called every frame to update all entities containing a MovementComponent. 
-		void update(World* world) {
-
-			if (app->getKeyboard().isPressed(GLFW_KEY_ESCAPE))
+		void update(double deltatime) {
+			if (app->getKeyboard().justPressed(GLFW_KEY_M))
+			{
+				changeScore(5);
+			}
+			if (app->getKeyboard().justPressed(GLFW_KEY_ESCAPE))
 			{
 				switch (currentState)
 				{
@@ -61,6 +68,10 @@ namespace our
 			}
 		}
 	};
+	int GameMananger::score = 0;
+	double GameMananger::timePlayed = 0.0f;
+
+	GameMananger GameMananger::gm;
 
 	int GameMananger::score = 0;
 

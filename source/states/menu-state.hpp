@@ -18,7 +18,7 @@ class MenuState : public our::State {
 
     void onInitialize() override {
         // First of all, we get the scene configuration from the app config
-        auto& config = getApp()->getConfig()["scene"];
+        auto& config = getApp()->getConfig()["scene0"];
         // If we have assets in the scene config, we deserialize them
         if (config.contains("assets")) {
             our::deserializeAllAssets(config["assets"]);
@@ -34,7 +34,7 @@ class MenuState : public our::State {
         
         // And finally we use the renderer system to draw the scene
         auto size = getApp()->getFrameBufferSize();
-        gameManager.update(&world);
+        gameManager.update(deltaTime);
         renderer.render(&world, glm::ivec2(0, 0), size);
     }
 
@@ -45,10 +45,13 @@ class MenuState : public our::State {
 
     void onImmediateGui() {
 
-        ImGui::Begin("Game Menu");
+        //ImGui::ShowDemoWindow();
+        ImGui::Begin("Game Menu",false);
 
-        if (ImGui::Button("Reset")) {
-           
+        ImGui::Text("Turbo Snail!");
+
+        if (ImGui::Button("Start Game!")) {
+            gameManager.startGame();
         }
 
         ImGui::End();
