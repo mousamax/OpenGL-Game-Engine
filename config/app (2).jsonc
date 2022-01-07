@@ -23,7 +23,12 @@
                 "wood": "assets/textures/wood.jpg",
                 "glass": "assets/textures/glass-panels.png",
                 "monkey": "assets/textures/monkey.png",
-                "cottage": "assets/textures/diffuse.png"
+                "ao_monkey": "assets/textures/ao_monkey.png",
+                "snow": "assets/textures/snow.png",
+                "asphalt-albedo": "assets/textures/asphalt/albedo.jpg",
+                "asphalt-emissive": "assets/textures/asphalt/emissive.jpg",
+                "asphalt-roughness": "assets/textures/asphalt/roughness.jpg",
+                "asphalt-specular": "assets/textures/asphalt/specular.jpg"
             },
             "meshes":{
                 "cube": "assets/models/cube.obj",
@@ -33,12 +38,16 @@
             },
             "samplers":{
                 "default":{},
+                "grass": {
+                    "WRAP_S":"GL_REPEAT",
+                    "WRAP_T":"GL_REPEAT"
+                },
                 "pixelated":{
                     "MAG_FILTER": "GL_NEAREST"
                 }
             },
             "materials":{
-                "grass": {
+                "asphalt": {
                     "type": "lit",
                     "shader": "lit-textured",
                     "pipelineState": {
@@ -49,12 +58,12 @@
                             "enabled": true
                         }
                     },
-                    "albedo-texture": "grass",
-                    "specular-texture": "grass",
-                    "roughness-texture": "grass",
-                    "ambient-occlusion-texture": "grass",
-                    "emission-texture": "grass",
-                    "sampler": "default"
+                    "albedo-texture": "asphalt-albedo",
+                    "specular-texture": "asphalt-specular",
+                    "roughness-texture": "asphalt-roughness",
+                    "ambient-occlusion-texture": "asphalt-albedo",
+                    "emission-texture": "asphalt-emissive",
+                    "sampler": "grass"
                 },
                 "monkey": {
                     "type": "lit",
@@ -70,7 +79,7 @@
                     "albedo-texture": "monkey",
                     "specular-texture": "monkey",
                     "roughness-texture": "monkey",
-                    "ambient-occlusion-texture": "monkey",
+                    "ambient-occlusion-texture": "ao_monkey",
                     "emission-texture": "monkey",
                     "sampler": "default"
                 },
@@ -96,16 +105,18 @@
         },
         "world": [
             {
-                "position": [ 5, 0, 3 ],
+                "position": [ 0, 0, 0 ],
                 "name": "player",
                 "components": [
                     {
-                        "type": "Player Movement"
+                        "type": "Player Movement",
+                        "forwardVelocity": 3.0,
+                        "steeringVelocity": 10.0
                     }
                 ],
                 "children": [
                     {
-                        "position": [ 0, 5, 10 ],
+                        "position": [ 0, 3, 7 ],
                         "components": [
                             {
                                 "type": "Camera"
@@ -131,7 +142,7 @@
                 ]
             },
             {
-                "position": [ 4, 0, 0 ],
+                "position": [ 4, 0, -10 ],
                 "tag": "coin",
                 "components": [
                     {
@@ -152,7 +163,70 @@
                 ]
             },
             {
-                "position": [ -4, 0, 0 ],
+                "position": [ 0, 0, -15 ],
+                "tag": "coin",
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "sphere",
+                        "material": "monkey"
+                    },
+                    {
+                        "type": "Collision",
+                        "center": [ 0, 0, 0 ],
+                        "radius": 1
+                    },
+                    {
+                        "type": "Movement",
+                        "linearVelocity": [ 0, 0, 0 ],
+                        "angularVelocity": [ 0, 45, 0 ]
+                    }
+                ]
+            },
+            {
+                "position": [ 4, 0, -30 ],
+                "tag": "coin",
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "sphere",
+                        "material": "monkey"
+                    },
+                    {
+                        "type": "Collision",
+                        "center": [ 0, 0, 0 ],
+                        "radius": 1
+                    },
+                    {
+                        "type": "Movement",
+                        "linearVelocity": [ 0, 0, 0 ],
+                        "angularVelocity": [ 0, 45, 0 ]
+                    }
+                ]
+            },
+            {
+                "position": [ 0, 0, -35 ],
+                "tag": "coin",
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "sphere",
+                        "material": "monkey"
+                    },
+                    {
+                        "type": "Collision",
+                        "center": [ 0, 0, 0 ],
+                        "radius": 1
+                    },
+                    {
+                        "type": "Movement",
+                        "linearVelocity": [ 0, 0, 0 ],
+                        "angularVelocity": [ 0, 45, 0 ]
+                    }
+                ]
+            },
+            {
+                "position": [ 4, 0, -40 ],
                 "tag": "coin",
                 "components": [
                     {
@@ -216,23 +290,23 @@
                 ]
             },
             {
-                "name": "grass",
-                "position": [ 0, -1, 0 ],
+                "name": "asphalt",
+                "position": [ 0, -1, -50 ],
                 "rotation": [ -90, 0, 0 ],
-                "scale": [ 10, 10, 1 ],
+                "scale": [ 10, 50, 1 ],
                 "components": [
                     {
                         "type": "Mesh Renderer",
                         "mesh": "plane",
-                        "material": "grass"
+                        "material": "asphalt"
                     }
                 ]
             },
             {
                 "name": "moon",
-                "position": [ 0, 10, 0 ],
+                "position": [ 0, 10, -30 ],
                 "rotation": [ 45, 45, 0 ],
-                "scale": [ 5, 5, 5 ],
+                "scale": [ 2, 2, 2 ],
                 "components": [
                     {
                         "type": "Mesh Renderer",
