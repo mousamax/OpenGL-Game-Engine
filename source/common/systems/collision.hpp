@@ -27,41 +27,49 @@ namespace our
             glm::vec3 playerPosition = glm::vec3(0, 0, 0);
             float playerRadius = 0;
 
-            Entity *playerEntity = world->getPlayer();
+            Entity *playerMesh = nullptr;
 
-            // get the current player entity and get its position and radius
-            if (playerEntity->name == "player")
+            for (auto entity : world->getEntities())
             {
-                CollisionComponent *collision = playerEntity->getComponent<CollisionComponent>();
-
-                playerPosition = collision->center + glm::vec3(playerEntity->getLocalToWorldMatrix() * glm::vec4(0, 0, 0, 1));
-                playerRadius = collision->radius * glm::length(playerEntity->localTransform.scale) / 1.732f;
+                if (entity->name == "player mesh")
+                {
+                    playerMesh = entity;
+                    break;
+                }
             }
+
+            if (!playerMesh)
+                return;
+
+            std::cout << "found player" << std::endl;
+            // get the current player entity and get its position and radius
+
+            CollisionComponent *collision = playerMesh->getComponent<CollisionComponent>();
+
+            playerPosition = collision->center + glm::vec3(playerMesh->getLocalToWorldMatrix() * glm::vec4(0, 0, 0, 1));
+            playerRadius = collision->radius * glm::length(playerMesh->localTransform.scale) / 1.732f;
 
             for (auto entity : world->getEntities())
             {
 
                 // get all entities that have collision component
                 CollisionComponent *collision = entity->getComponent<CollisionComponent>();
-                if (entity->name != "player")
+                if (collision && entity->name != "player mesh")
                 {
 
-                    if (collision)
-                    {
-                        // get the new radius and position of the entity
-                        glm::vec3 newPosition = collision->center + glm::vec3(entity->getLocalToWorldMatrix() * glm::vec4(0, 0, 0, 1));
-                        float newRadius = collision->radius * glm::length(entity->localTransform.scale) / 1.732f;
+                    // get the new radius and position of the entity
+                    glm::vec3 newPosition = collision->center + glm::vec3(entity->getLocalToWorldMatrix() * glm::vec4(0, 0, 0, 1));
+                    float newRadius = collision->radius * glm::length(entity->localTransform.scale) / 1.732f;
 
-                        // compare with player position to check if it collides or not
-                        if (glm::length(newPosition - playerPosition) < playerRadius + newRadius)
+                    // compare with player position to check if it collides or not
+                    if (glm::length(newPosition - playerPosition) < playerRadius + newRadius)
+                    {
+                        std::cout << "collision" << std::endl;
+                        // collision occurred
+                        if (entity->name == "coin")
                         {
-                            std::cout << "collision" << std::endl;
-                            // collision occurred
-                            if (entity->name == "coin")
-                            {
-                                our::GameMananger::gm.changeScore(COIN_SCORE);
-                                world->markForRemoval(entity);
-                            }
+                            our::GameMananger::gm.changeScore(COIN_SCORE);
+                            world->markForRemoval(entity);
                         }
                     }
                 }
