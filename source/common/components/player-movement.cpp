@@ -10,5 +10,6 @@ namespace our
             return;
         horizontalSensitivity = data.value("horizontalSensitivity", horizontalSensitivity);
         forwardVelocity = data.value("forwardVelocity", forwardVelocity);
+        steeringVelocity = data.value("steeringVelocity", steeringVelocity);
     }
 }
