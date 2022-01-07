@@ -36,7 +36,6 @@ namespace our
 
                     playerPosition = collision->center + glm::vec3(entity->getLocalToWorldMatrix() * glm::vec4(0, 0, 0, 1));
                     playerRadius = collision->radius * glm::length(entity->localTransform.scale) / 1.732f;
-                    std::cout << "player position: " << playerPosition.x << " " << playerPosition.y << " " << playerPosition.z << std::endl;
                     break;
                 }
             }
