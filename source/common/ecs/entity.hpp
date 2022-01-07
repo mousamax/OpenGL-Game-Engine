@@ -22,6 +22,8 @@ namespace our {
         std::string name; // The name of the entity. It could be useful to refer to an entity by its name
         Entity* parent;   // The parent of the entity. The transform of the entity is relative to its parent.
                           // If parent is null, the entity is a root entity (has no parent).
+
+        std::string tag; // The tag of the entity. It could be useful to refer to an entity by its tag
         Transform localTransform; // The transform of this entity relative to its parent.
 
         World* getWorld() const { return world; } // Returns the world to which this entity belongs

@@ -6,7 +6,9 @@
 #include <systems/game-manager.hpp>
 #include <systems/forward-renderer.hpp>
 #include <systems/free-camera-controller.hpp>
+#include <systems/collision.hpp>
 #include <systems/movement.hpp>
+#include <systems/player-movement.hpp>
 #include <asset-loader.hpp>
 
 #include <stdint.h>
@@ -19,6 +21,8 @@ class Playstate: public our::State {
     our::ForwardRenderer renderer;
     our::FreeCameraControllerSystem cameraController;
     our::MovementSystem movementSystem;
+    our::CollisionSystem collisionSystem;
+    our::PlayerMovementSystem playerMovementSystem;
 
     void onInitialize() override {
         // First of all, we get the scene configuration from the app config
@@ -34,14 +38,18 @@ class Playstate: public our::State {
         // We initialize the camera controller system since it needs a pointer to the app
         cameraController.enter(getApp());
         gameManager.enter(getApp(),gameManager.play_state);
+        playerMovementSystem.enter(getApp());
     }
 
     void onDraw(double deltaTime) override {
         // Here, we just run a bunch of systems to control the world logic
         movementSystem.update(&world, (float)deltaTime);
         cameraController.update(&world, (float)deltaTime);
-        gameManager.update(deltaTime);
+        collisionSystem.update(&world);
+        gameManager.update(&world);
+        playerMovementSystem.update(&world, (float)deltaTime);
         // And finally we use the renderer system to draw the scene
+        world.deleteMarkedEntities();
         auto size = getApp()->getFrameBufferSize();
         renderer.render(&world, glm::ivec2(0, 0), size);
     }

@@ -125,32 +125,161 @@
         },
         "world":[
             {
-                "position": [0, 0, 10],
+                "position": [
+                    5,
+                    0,
+                    3
+                ],
+                "name": "player",
                 "components": [
                     {
-                        "type": "Camera"
-                    },
-                    {
-                        "type": "Free Camera Controller"
+                        "type": "Player Movement"
                     }
                 ],
                 "children": [
                     {
-                        "position": [1, -1, -1],
-                        "rotation": [45, 45, 0],
-                        "scale": [0.1, 0.1, 1.0],
+                        "position": [
+                            0,
+                            5,
+                            10
+                        ],
+                        "components": [
+                            {
+                                "type": "Camera"
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            0,
+                            0,
+                            0
+                        ],
+                        "name": "player mesh",
                         "components": [
                             {
                                 "type": "Mesh Renderer",
-                                "mesh": "cube",
+                                "mesh": "monkey",
                                 "material": "metal"
+                            },
+                            {
+                                "type": "Collision",
+                                "center": [
+                                    0,
+                                    0,
+                                    0
+                                ],
+                                "radius": 1
                             }
                         ]
                     }
                 ]
             },
             {
-                "rotation": [-45, 0, 0],
+                "position": [
+                    4,
+                    0,
+                    0
+                ],
+                "tag": "coin",
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "sphere",
+                        "material": "metal"
+                    },
+                    {
+                        "type": "Collision",
+                        "center": [
+                            0,
+                            0,
+                            0
+                        ],
+                        "radius": 1
+                    },
+                    {
+                        "type": "Movement",
+                        "linearVelocity": [
+                            0,
+                            0,
+                            0
+                        ],
+                        "angularVelocity": [
+                            0,
+                            45,
+                            0
+                        ]
+                    }
+                ]
+            },
+            {
+                "position": [
+                    -4,
+                    0,
+                    0
+                ],
+                "tag": "coin",
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "sphere",
+                        "material": "metal"
+                    },
+                    {
+                        "type": "Collision",
+                        "center": [
+                            0,
+                            0,
+                            0
+                        ],
+                        "radius": 1
+                    },
+                    {
+                        "type": "Movement",
+                        "linearVelocity": [
+                            0,
+                            0,
+                            0
+                        ],
+                        "angularVelocity": [
+                            0,
+                            45,
+                            0
+                        ]
+                    }
+                ]
+            },
+            // {
+            //     "position": [ 0, 0, 10 ],
+            //     "components": [
+            //         {
+            //             "type": "Camera"
+            //         },
+            //         {
+            //             "type": "Free Camera Controller"
+            //         }
+            //     ],
+            //     "children": [
+            //         {
+            //             "position": [ 1, -1, -1 ],
+            //             "rotation": [ 45, 45, 0 ],
+            //             "scale": [ 0.1, 0.1, 1.0 ],
+            //             "components": [
+            //                 {
+            //                     "type": "Mesh Renderer",
+            //                     "mesh": "cube",
+            //                     "material": "metal"
+            //                 }
+            //             ]
+            //         }
+            //     ]
+            // },
+            {
+                "rotation": [
+                    -45,
+                    0,
+                    0
+                ],
                 "components": [
                     {
                         "type": "Mesh Renderer",
@@ -159,15 +288,35 @@
                     },
                     {
                         "type": "Movement",
-                        "linearVelocity": [0, 0.1, 0],
-                        "angularVelocity": [0, 45, 0]
+                        "linearVelocity": [
+                            0,
+                            0.1,
+                            0
+                        ],
+                        "angularVelocity": [
+                            0,
+                            45,
+                            0
+                        ]
                     }
                 ]
             },
             {
-                "position": [0, -1, 0],
-                "rotation": [-90, 0, 0],
-                "scale": [10, 10, 1],
+                "position": [
+                    0,
+                    -1,
+                    0
+                ],
+                "rotation": [
+                    -90,
+                    0,
+                    0
+                ],
+                "scale": [
+                    50,
+                    50,
+                    1
+                ],
                 "components": [
                     {
                         "type": "Mesh Renderer",
@@ -248,7 +397,43 @@
                     },
                     {
                         "type": "Movement",
-                        "angularVelocity": [0, 90, 0]
+                        "angularVelocity": [
+                            0,
+                            40,
+                            0
+                        ]
+                    }
+                ]
+            },
+            {
+                "rotation": [
+                    -45,
+                    0,
+                    0
+                ],
+                "position": [
+                    6,
+                    0,
+                    3
+                ],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "monkey",
+                        "material": "monkey"
+                    },
+                    {
+                        "type": "Movement",
+                        "linearVelocity": [
+                            0,
+                            0,
+                            0
+                        ],
+                        "angularVelocity": [
+                            0,
+                            0,
+                            0
+                        ]
                     }
                 ]
             }

@@ -79,6 +79,10 @@ set(COMMON_SOURCES
         source/common/components/free-camera-controller.cpp
         source/common/components/movement.hpp
         source/common/components/movement.cpp
+        source/common/components/collision.hpp
+        source/common/components/collision.cpp
+        source/common/components/player-movement.hpp
+        source/common/components/player-movement.cpp
         source/common/components/component-deserializer.hpp
 
         source/common/systems/forward-renderer.hpp
@@ -86,6 +90,7 @@ set(COMMON_SOURCES
         source/common/systems/movement.hpp
         source/common/systems/collision.hpp
         source/common/systems/game-manager.hpp
+        source/common/systems/player-movement.hpp
 )
 
 # Define the directories in which to search for the included headers
