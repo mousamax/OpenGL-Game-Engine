@@ -236,6 +236,43 @@
                     }
                 ]
             },
+            {
+                "position": [
+                    -4,
+                    0,
+                    0
+                ],
+                "tag": "coin",
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "sphere",
+                        "material": "metal"
+                    },
+                    {
+                        "type": "Collision",
+                        "center": [
+                            0,
+                            0,
+                            0
+                        ],
+                        "radius": 1
+                    },
+                    {
+                        "type": "Movement",
+                        "linearVelocity": [
+                            0,
+                            0,
+                            0
+                        ],
+                        "angularVelocity": [
+                            0,
+                            45,
+                            0
+                        ]
+                    }
+                ]
+            },
             // {
             //     "position": [ 0, 0, 10 ],
             //     "components": [
