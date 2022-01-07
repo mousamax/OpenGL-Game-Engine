@@ -1,5 +1,5 @@
 {
-    "start-scene": "menu",
+    "start-scene": "main",
     "window": {
         "title": "Default Game Window",
         "size": {
@@ -124,7 +124,49 @@
         },
         "world": [
             {
+                "position": [ 0, 0, 0 ],
                 "name": "player",
+                "components":[
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "monkey",
+                        "material": "metal"
+                    },
+                    {
+                        "type" : "Collision",
+                        "center": [ 0, 0, 0 ],
+                        "radius": 1
+                    },
+                    {
+                        "type": "Movement",
+                        "linearVelocity": [0.3 , 0, 0 ],
+                        "angularVelocity": [ 0, 45, 0 ]
+                    }
+                ]
+
+            },
+            {
+                "position": [ 4, 0, 0 ],
+                "name": "coin",
+                "components":[
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "sphere",
+                        "material": "metal"
+                    },
+                    {
+                        "type" : "Collision",
+                        "center": [ 0, 0, 0 ],
+                        "radius": 1
+                    },
+                    {
+                        "type": "Movement",
+                        "linearVelocity": [0 , 0, 0 ],
+                        "angularVelocity": [ 0, 45, 0 ]
+                    }
+                ]
+            },
+            {
                 "position": [ 0, 0, 10 ],
                 "components": [
                     {

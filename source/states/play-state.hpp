@@ -45,6 +45,7 @@ class Playstate: public our::State {
         collisionSystem.update(&world);
         gameManager.update(&world);
         // And finally we use the renderer system to draw the scene
+        world.deleteMarkedEntities();
         auto size = getApp()->getFrameBufferSize();
         renderer.render(&world, glm::ivec2(0, 0), size);
     }

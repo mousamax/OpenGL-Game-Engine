@@ -10,4 +10,4 @@ namespace our
         radius = data.value("radius", radius);
         center = data.value("center", center);   
     }
-} // namespace our
+}
