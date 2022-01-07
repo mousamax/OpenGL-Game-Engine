@@ -1,5 +1,5 @@
 #pragma once
-#define COIN_SCORE 1
+#define COIN_SCORE 5
 
 #include "../ecs/world.hpp"
 #include "../components/collision.hpp"
