@@ -27,17 +27,15 @@ namespace our
             glm::vec3 playerPosition = glm::vec3(0, 0, 0);
             float playerRadius = 0;
 
-            for (auto entity : world->getEntities())
-            {
-                // get the current player entity and get its position and radius
-                if (entity->name == "player")
-                {
-                    CollisionComponent *collision = entity->getComponent<CollisionComponent>();
+            Entity *playerEntity = world->getPlayer();
 
-                    playerPosition = collision->center + glm::vec3(entity->getLocalToWorldMatrix() * glm::vec4(0, 0, 0, 1));
-                    playerRadius = collision->radius * glm::length(entity->localTransform.scale) / 1.732f;
-                    break;
-                }
+            // get the current player entity and get its position and radius
+            if (playerEntity->name == "player")
+            {
+                CollisionComponent *collision = playerEntity->getComponent<CollisionComponent>();
+
+                playerPosition = collision->center + glm::vec3(playerEntity->getLocalToWorldMatrix() * glm::vec4(0, 0, 0, 1));
+                playerRadius = collision->radius * glm::length(playerEntity->localTransform.scale) / 1.732f;
             }
 
             for (auto entity : world->getEntities())
