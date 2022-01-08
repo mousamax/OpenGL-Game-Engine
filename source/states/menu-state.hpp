@@ -38,10 +38,10 @@ class MenuState : public our::State {
         renderer.render(&world, glm::ivec2(0, 0), size);
     }
 
-    void onDestroy() override {
-        // and we delete all the loaded assets to free memory on the RAM and the VRAM
-        our::clearAllAssets();
-    }
+    // void onDestroy() override {
+    //     // and we delete all the loaded assets to free memory on the RAM and the VRAM
+    //     our::clearAllAssets();
+    // }
 
     void onImmediateGui() {
 
