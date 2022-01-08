@@ -46,7 +46,7 @@ class MenuState : public our::State {
     void onImmediateGui() {
 
         //ImGui::ShowDemoWindow();
-        ImGui::Begin("Game Menu",false);
+        ImGui::Begin("Game Menu", NULL);
 
         ImGui::Text("Turbo Snail!");
 
