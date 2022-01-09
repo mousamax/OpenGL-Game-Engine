@@ -284,7 +284,7 @@
                 ]
             },
             {
-                "position":[0,0,-60],
+                "position":[0,0,-80],
                 "scale":[10,1,1],
                 "tag": "finish",
                 "components":[
@@ -650,7 +650,7 @@
                 ]
             },
             {
-                "position":[0,0,-60],
+                "position":[0,0,-80],
                 "scale":[10,1,1],
                 "tag": "finish",
                 "components":[

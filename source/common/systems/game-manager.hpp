@@ -63,6 +63,7 @@ namespace our
 			}
 			if (app->getKeyboard().justPressed(GLFW_KEY_ESCAPE))
 			{
+				std::cout << "score: " << score << std::endl;
 				switch (currentState)
 				{
 				case our::GameMananger::MENU:
@@ -77,8 +78,10 @@ namespace our
 			}
 			if (score == 25)
 			{
-				this->exit();
+				finished = true;
 			}
+			if (finished)
+				this->exit();
 		}
 
 		void exit()
