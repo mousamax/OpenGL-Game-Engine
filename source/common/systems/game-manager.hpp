@@ -12,12 +12,20 @@ namespace our
 {
 
 	// The Game Manager system is responsible for controling the game logic.
-	// keep track of the score, time etc... 
-	class GameMananger {
+	// keep track of the score, time etc...
+	class GameMananger
+	{
 
-		Application* app; // The application in which the state runs
-		enum states { MENU, PLAY, GAMEOVER };
+		Application *app; // The application in which the state runs
+		enum states
+		{
+			MENU,
+			PLAY,
+			GAMEOVER
+		};
 		states currentState;
+		State *State;
+		bool finished = false;
 
 	public:
 		states menu_state = MENU;
@@ -27,11 +35,12 @@ namespace our
 		static int score;
 		static double timePlayed;
 
-		//this static object can be used by different logic components 
+		//this static object can be used by different logic components
 		static GameMananger gm;
 
 		// When a state enters, it should call this function and give it the pointer to the application
-		void enter(Application* app, states state) {
+		void enter(Application *app, states state)
+		{
 			this->app = app;
 			currentState = state;
 		}
@@ -42,11 +51,12 @@ namespace our
 		}
 		void startGame()
 		{
-			if(currentState != our::GameMananger::PLAY)
-			app->changeState("main");
+			if (currentState != our::GameMananger::PLAY)
+				app->changeState("main");
 		}
-		// This should be called every frame to update all entities containing a MovementComponent. 
-		void update(double deltatime) {
+		// This should be called every frame to update all entities containing a MovementComponent.
+		void update(double deltatime)
+		{
 			if (app->getKeyboard().justPressed(GLFW_KEY_M))
 			{
 				changeScore(5);
@@ -65,6 +75,16 @@ namespace our
 					break;
 				}
 			}
+			if (score == 25)
+			{
+				this->exit();
+			}
+		}
+
+		void exit()
+		{
+			std::cout << "Exiting" << std::endl;
+			State->onDestroy();
 		}
 	};
 	int GameMananger::score = 0;
