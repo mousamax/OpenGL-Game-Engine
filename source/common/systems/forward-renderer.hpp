@@ -163,31 +163,6 @@ namespace our
 					if (light_index >= MAX_LIGHT_COUNT) break;
 				}
 				command.mesh->draw();
-
-				// //-----------------------------------------------------
-				// command.material->shader->set("transform_IT", glm::transpose(glm::inverse(command.localToWorld)));
-				// command.material->shader->set("VP", VP);
-				// command.material->shader->set("eye", camera->getOwner()->getLocalToWorldMatrix() * glm::vec4(0, 0, 0, 1));
-				// //remove this it should be handeld in light component --
-				// command.material->shader->set("light_count", 2);
-				// command.material->shader->set("sky_light.sky", glm::vec3(0.2, 0.6, 0.8));
-				// command.material->shader->set("sky_light.horizon", glm::vec3(0.5, 0.5, 0.5));
-				// command.material->shader->set("sky_light.ground", glm::vec3(0.2, 0.7, 0.4));
-				// std::cout << "SKY Light DONE" << std::endl;
-				// command.material->shader->set("lights[0].type", 2);
-				// command.material->shader->set("lights[0].position", glm::vec3(0, 3, 0));
-				// command.material->shader->set("lights[0].direction", glm::vec3(0, -1, 0));
-				// command.material->shader->set("lights[0].color", glm::vec3(1, 0.9, 0.7));
-				// command.material->shader->set("lights[0].attenuation", glm::vec3(0, 0, 1));
-				// command.material->shader->set("lights[0].cone_angles", glm::vec2(glm::radians(15.0f), glm::radians(30.0f)));
-				// command.material->shader->set("lights[1].type", 0);
-				// command.material->shader->set("lights[1].position", glm::vec3(0, 3, 0));
-				// command.material->shader->set("lights[1].direction", glm::vec3(-1, 0, 0));
-				// command.material->shader->set("lights[1].color", glm::vec3(1, 0.0, 0.0));
-				// command.material->shader->set("lights[1].attenuation", glm::vec3(0, 0, 1));
-				// command.material->shader->set("lights[1].cone_angles", glm::vec2(glm::radians(15.0f), glm::radians(30.0f)));
-				// // -- //
-
 			}
 			// we draw the transparent commands after opaque commands
 			// this way, we can draw the transparent objects in the correct order
@@ -195,9 +170,48 @@ namespace our
 			// color , alpha = alpha * v + (1 - alpha) * v
 			for (auto command : transparentCommands)
 			{
+				//setup material samplers => albedo ..etc
 				command.material->setup();
-				command.material->shader->set("transform", VP * command.localToWorld);
+				command.material->shader->set("transform", command.localToWorld);//remove VP for light
+				command.material->shader->set("transform_IT", glm::transpose(glm::inverse(command.localToWorld)));
+				// -- for lighting support -- //
+				command.material->shader->set("VP", VP);
+				glm::vec4 eye = camera->getOwner()->getLocalToWorldMatrix() * glm::vec4(0, 0, 0, 1);
+				command.material->shader->set("eye", glm::vec3(eye));
+				//----------------------------------------------------
+				command.material->shader->set("light_count", (int)lights.size());
+				//command.material->shader->set("sky_light.sky", glm::vec3(0.2, 0.6, 0.8));
+				//command.material->shader->set("sky_light.horizon", glm::vec3(0.5, 0.5, 0.5));
+				//command.material->shader->set("sky_light.ground", glm::vec3(0.2, 0.7, 0.4));
+				int light_index = 0;
+				const int MAX_LIGHT_COUNT = 8;
+				for (const auto& light : lights) {
+					std::string prefix = "lights[" + std::to_string(light_index) + "].";
 
+					command.material->shader->set(prefix + "type", static_cast<int>(light->type));
+
+					command.material->shader->set(prefix + "color", glm::normalize(light->color));
+
+					switch (light->type) {
+					case LightType::DIRECTIONAL:
+						command.material->shader->set(prefix + "direction", glm::normalize(light->direction));
+						break;
+					case LightType::POINT:
+						glm::vec4 light4 = light->getOwner()->getLocalToWorldMatrix() * glm::vec4(light->getOwner()->localTransform.position, 1);
+						command.material->shader->set(prefix + "position", glm::vec3(light4));
+						command.material->shader->set(prefix + "attenuation", light->attenuation);
+						break;
+					case LightType::SPOT:
+						glm::vec4 Slight = light->getOwner()->getLocalToWorldMatrix() * glm::vec4(light->getOwner()->localTransform.position, 1);
+						command.material->shader->set(prefix + "position", glm::vec3(Slight));
+						command.material->shader->set(prefix + "direction", glm::normalize(light->direction));
+						command.material->shader->set(prefix + "attenuation", light->attenuation);
+						command.material->shader->set(prefix + "cone_angles", glm::vec2(glm::radians(light->cone_angles[0]), glm::radians(light->cone_angles[1])));
+						break;
+					}
+					light_index++;
+					if (light_index >= MAX_LIGHT_COUNT) break;
+				}
 				command.mesh->draw();
 			}
 		}

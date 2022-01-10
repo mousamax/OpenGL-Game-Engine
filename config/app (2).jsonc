@@ -1,5 +1,5 @@
 {
-    "start-scene": "main",
+    "start-scene": "menu",
     "window":
     {
         "title":"Light Testing",
@@ -8,6 +8,243 @@
             "height":720
         },
         "fullscreen": false
+    },
+    "scene0": {
+        "assets":{
+            "shaders":{
+                "lit-textured":{
+                    "vs":"assets/shaders/lit-textured.vert",
+                    "fs":"assets/shaders/lit-textured.frag"
+                }
+            },
+            "textures": {
+                "moon": "assets/textures/moon.jpg",
+                "grass": "assets/textures/grass_ground_d.jpg",
+                "wood": "assets/textures/wood.jpg",
+                "glass": "assets/textures/glass-panels.png",
+                "monkey": "assets/textures/monkey.png",
+                "ao_monkey": "assets/textures/ao_monkey.jpg",
+                "snow": "assets/textures/snow.jpg",
+                "asphalt-albedo": "assets/textures/asphalt/albedo.jpg",
+                "asphalt-emissive": "assets/textures/asphalt/emissive.jpg",
+                "asphalt-roughness": "assets/textures/asphalt/roughness.jpg",
+                "asphalt-specular": "assets/textures/asphalt/specular.jpg"
+            },
+            "meshes":{
+                "cube": "assets/models/cube.obj",
+                "monkey": "assets/models/monkey.obj",
+                "plane": "assets/models/plane.obj",
+                "sphere": "assets/models/sphere.obj"
+            },
+            "samplers":{
+                "default":{},
+                "grass": {
+                    "WRAP_S":"GL_REPEAT",
+                    "WRAP_T":"GL_REPEAT"
+                },
+                "pixelated":{
+                    "MAG_FILTER": "GL_NEAREST"
+                }
+            },
+            "materials":{
+                "asphalt": {
+                    "type": "lit",
+                    "shader": "lit-textured",
+                    "pipelineState": {
+                        "faceCulling": {
+                            "enabled": false
+                        },
+                        "depthTesting": {
+                            "enabled": true
+                        }
+                    },
+                    "albedo-texture": "asphalt-albedo",
+                    "specular-texture": "asphalt-specular",
+                    "roughness-texture": "asphalt-roughness",
+                    "ambient-occlusion-texture": "asphalt-albedo",
+                    "emission-texture": "asphalt-emissive",
+                    "sampler": "grass"
+                },
+                "monkey": {
+                    "type": "lit",
+                    "shader": "lit-textured",
+                    "pipelineState": {
+                        "faceCulling": {
+                            "enabled": false
+                        },
+                        "depthTesting": {
+                            "enabled": true
+                        }
+                    },
+                    "albedo-texture": "monkey",
+                    "specular-texture": "monkey",
+                    "roughness-texture": "monkey",
+                    "ambient-occlusion-texture": "ao_monkey",
+                    "emission-texture": "monkey",
+                    "sampler": "default"
+                },
+                "glass":{
+                    "type": "lit",
+                    "shader": "lit-textured",
+                    "pipelineState": {
+                        "faceCulling":{
+                            "enabled": false
+                        },
+                        "depthTesting":{
+                            "enabled": true
+                        }
+                    },
+                    "transparent": false,
+                    "albedo-texture":"glass",
+                    "specular-texture": "glass",
+                    "roughness-texture": "glass",
+                    "ambient-occlusion-texture": "glass",
+                    "emission-texture": "glass",
+                    "sampler": "default"
+                },
+                "wood":{
+                    "type": "lit",
+                    "shader": "lit-textured",
+                    "pipelineState": {
+                        "faceCulling":{
+                            "enabled": false
+                        },
+                        "depthTesting":{
+                            "enabled": true
+                        }
+                    },
+                    "albedo-texture":"monkey",
+                    "specular-texture": "monkey",
+                    "roughness-texture": "monkey",
+                    "ambient-occlusion-texture": "ao_monkey",
+                    "emission-texture": "monkey",
+                    "sampler": "default"
+                },
+                "moon": {
+                    "type": "lit",
+                    "shader": "lit-textured",
+                    "pipelineState": {
+                        "faceCulling": {
+                            "enabled": false
+                        },
+                        "depthTesting": {
+                            "enabled": true
+                        }
+                    },
+                    "albedo-texture": "moon",
+                    "specular-texture": "moon",
+                    "roughness-texture": "moon",
+                    "ambient-occlusion-texture": "moon",
+                    "emission-texture": "moon",
+                    "sampler": "default"
+                }
+            }
+        },
+        "world": [
+            {
+                "position": [ 0, 0, 0 ],
+                "name": "player",
+                "components": [
+                    {
+                        "type": "Player Movement",
+                        "forwardVelocity": 3.0,
+                        "steeringVelocity": 10.0
+                    }
+                ],
+                "children": [
+                    {
+                        "position": [ 0, 3, 7 ],
+                        "components": [
+                            {
+                                "type": "Camera"
+                            }
+                        ]
+                    },
+                    {
+                        "position": [ 0, 0, 0 ],
+                        "name": "player mesh",
+                        "components": [
+                            {
+                                "type": "Mesh Renderer",
+                                "mesh": "monkey",
+                                "material": "monkey"
+                            },
+                            {
+                                "type": "Collision",
+                                "center": [ 0, 0, 0 ],
+                                "radius": 1
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "position": [ 4, 0, -10 ],
+                "tag": "coin",
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "sphere",
+                        "material": "monkey"
+                    },
+                    {
+                        "type": "Collision",
+                        "center": [ 0, 0, 0 ],
+                        "radius": 1
+                    },
+                    {
+                        "type": "Movement",
+                        "linearVelocity": [ 0, 0, 0 ],
+                        "angularVelocity": [ 0, 45, 0 ]
+                    }
+                ]
+            },
+            {
+                "position": [ -3, 0.5, 1 ],
+                "name": "point light",
+                "components": [
+                    {
+                        "type": "Light",
+                        "lightType": "point",
+                        "color": [ 0.1, 0.1, 0.3 ],
+                        "attenuation": [ 0, 0, 0.2 ],
+                        "direction": [ 0, -1.0, 0 ],
+                        "cone-angels": [ 15.0, 30.0 ]
+                    }
+                ]
+            },
+            {
+                "position": [ 3, 1, 1 ],
+                "name": "sun",
+                "components": [
+                    {
+                        "type": "Light",
+                        "lightType": "directional",
+                        "color": [ 0.1, 0.1, 0.3 ],
+                        "attenuation": [ 0, 0, 0.1 ],
+                        "direction": [ -1.0, 0, 0 ],
+                        "cone-angels": [ 15.0, 30.0 ]
+                    }
+                ]
+            },
+            {
+                "name": "moon",
+                "position": [ 0, 10, -30 ],
+                "rotation": [ 45, 45, 0 ],
+                "scale": [ 2, 2, 2 ],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "sphere",
+                        "material": "moon"
+                    },
+                    {
+                        "type": "Movement",
+                        "angularVelocity": [ 0, 90, 0 ]
+                    }
+                ]
+            }
+        ]
     },
     "scene1": {
         "assets":{
@@ -23,8 +260,8 @@
                 "wood": "assets/textures/wood.jpg",
                 "glass": "assets/textures/glass-panels.png",
                 "monkey": "assets/textures/monkey.png",
-                "ao_monkey": "assets/textures/ao_monkey.png",
-                "snow": "assets/textures/snow.png",
+                "ao_monkey": "assets/textures/ao_monkey.jpg",
+                "snow": "assets/textures/snow.jpg",
                 "asphalt-albedo": "assets/textures/asphalt/albedo.jpg",
                 "asphalt-emissive": "assets/textures/asphalt/emissive.jpg",
                 "asphalt-roughness": "assets/textures/asphalt/roughness.jpg",
@@ -226,23 +463,19 @@
                 ]
             },
             {
-                "position": [ 4, 0, -40 ],
-                "tag": "coin",
+                "position": [ 0, 0, -70 ],
+                "scale": [ 10, 1, 2 ],
+                "tag": "finish",
                 "components": [
                     {
                         "type": "Mesh Renderer",
-                        "mesh": "sphere",
+                        "mesh": "cube",
                         "material": "monkey"
                     },
                     {
                         "type": "Collision",
                         "center": [ 0, 0, 0 ],
                         "radius": 1
-                    },
-                    {
-                        "type": "Movement",
-                        "linearVelocity": [ 0, 0, 0 ],
-                        "angularVelocity": [ 0, 45, 0 ]
                     }
                 ]
             },
@@ -269,23 +502,8 @@
                         "lightType": "directional",
                         "color": [ 0.1, 0.1, 0.3 ],
                         "attenuation": [ 0, 0, 0.1 ],
-                        "direction": [ -1.0, 0, 0 ],
+                        "direction": [ 0, -0.8, 0 ],
                         "cone-angels": [ 15.0, 30.0 ]
-                    }
-                ]
-            },
-            {
-                "rotation": [ -45, 0, 0 ],
-                "name": "monkey",
-                "components": [
-                    {
-                        "type": "Mesh Renderer",
-                        "mesh": "monkey",
-                        "material": "monkey"
-                    },
-                    {
-                        "type": "Movement",
-                        "angularVelocity": [ 0, 45, 0 ]
                     }
                 ]
             },

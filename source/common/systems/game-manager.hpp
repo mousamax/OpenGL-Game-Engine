@@ -18,14 +18,17 @@ namespace our
 		Application* app; // The application in which the state runs
 		enum states { MENU, PLAY, GAMEOVER };
 		states currentState;
-
+		State *State;
 	public:
 		states menu_state = MENU;
 		states play_state = PLAY;
 		states gameover_state = GAMEOVER;
 		//game score
 		static int score;
+		static int difficulty;
 		static double timePlayed;
+		static bool gameOver;
+		static bool win;
 
 		//this static object can be used by different logic components 
 		static GameMananger gm;
@@ -48,7 +51,7 @@ namespace our
 		// This should be called every frame to update all entities containing a MovementComponent. 
 		void update(double deltatime) {
 			if (app->getKeyboard().justPressed(GLFW_KEY_M))
-			{
+			{//for testing
 				changeScore(5);
 			}
 			if (app->getKeyboard().justPressed(GLFW_KEY_ESCAPE))
@@ -65,10 +68,17 @@ namespace our
 					break;
 				}
 			}
+			if (score == 25)
+			{
+				win = true;
+			}
 		}
 	};
 	int GameMananger::score = 0;
+	int GameMananger::difficulty = 4;
 	double GameMananger::timePlayed = 0.0f;
+	bool GameMananger::gameOver = false;
+	bool GameMananger::win = false;
 
 	GameMananger GameMananger::gm;
 

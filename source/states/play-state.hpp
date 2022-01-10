@@ -3,6 +3,7 @@
 #include <application.hpp>
 
 #include <ecs/world.hpp>
+#include <ecs/entity.hpp>
 #include <systems/game-manager.hpp>
 #include <systems/forward-renderer.hpp>
 #include <systems/free-camera-controller.hpp>
@@ -53,23 +54,61 @@ class Playstate: public our::State {
         auto size = getApp()->getFrameBufferSize();
         renderer.render(&world, glm::ivec2(0, 0), size);
     }
-
+    void restartGame(int diffuclity)
+    {
+        for (int i = 0; i < diffuclity; i++)
+        {
+            float z = 10 + (std::rand() % 70) * -1;
+            float x = -5 + (std::rand() % 5);
+            instantiateCoin(glm::vec3(x,0,z));
+        }
+    }
     void onDestroy() override {
         // On exit, we call exit for the camera controller system to make sure that the mouse is unlocked
         cameraController.exit();
         // and we delete all the loaded assets to free memory on the RAM and the VRAM
         our::clearAllAssets();
+        //clear world
+        world.clear();
     }
 
     void onImmediateGui() {
 
         //ImGui::ShowDemoWindow();
         ImGui::Begin("Game Menu", false);
-
+        if (ImGui::Button("create coin")) {
+            restartGame(our::GameMananger::difficulty++);
+        }
         ImGui::Text("Turbo Snail!");
+        if (our::GameMananger::gameOver)
+        {
+            if (our::GameMananger::win)
+            {
+                ImGui::Text("WINNER!!");
+            }
+            else ImGui::Text("GAME OVER!!");
+            if (ImGui::Button("Restart Game")) {
+                getApp()->changeState("main");
+            }
+        }
         ImGui::Text("Score: %d", our::GameMananger::gm.score);
-        ImGui::Text("Time: %d", 0);
 
         ImGui::End();
+    }
+    void instantiateCoin(glm::vec3 position)
+    {
+        //instantiate coin
+        our::Entity* coin = world.add();
+        coin->tag = "coin";
+        coin->parent = nullptr;
+        coin->localTransform.position = position;
+        //add mesh renderer
+        coin->addComponent<our::MeshRendererComponent>();
+        coin->getComponent<our::MeshRendererComponent>()->mesh = our::AssetLoader<our::Mesh>::get("sphere");
+        coin->getComponent<our::MeshRendererComponent>()->material = our::AssetLoader<our::Material>::get("moon");
+        //add collision 
+        coin->addComponent<our::CollisionComponent>();
+        coin->getComponent<our::CollisionComponent>()->center = glm::vec3(0, 0, 0);
+        coin->getComponent<our::CollisionComponent>()->radius = 1;
     }
 };

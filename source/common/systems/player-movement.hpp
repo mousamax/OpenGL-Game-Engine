@@ -87,13 +87,15 @@ namespace our
             float forwardVelocity = controller->forwardVelocity;
             float steeringVelocity = controller->steeringVelocity;
             // We change the camera position based on the keys WASD
-            // S & W moves the player back and forth
+            if (our::GameMananger::gameOver)
+            {
+                forwardVelocity = 0.0f;
+                steeringVelocity = 0.0f;
+            }
             position += front * (deltaTime * horizontalSensitivity) * forwardVelocity;
-            if(app->getKeyboard().isPressed(GLFW_KEY_S)) position -= front * (deltaTime * horizontalSensitivity);
             // A & D moves the player left or right 
             if(app->getKeyboard().isPressed(GLFW_KEY_D)) position += right * (deltaTime * steeringVelocity);
             if(app->getKeyboard().isPressed(GLFW_KEY_A)) position -= right * (deltaTime * steeringVelocity);
- 
 
         }
     };

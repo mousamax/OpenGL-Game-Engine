@@ -70,6 +70,11 @@ namespace our
                             our::GameMananger::gm.changeScore(COIN_SCORE);
                             world->markForRemoval(entity);
                         }
+                        if (entity->tag == "finish")
+                        {
+                            our::GameMananger::gameOver = true;
+                            world->markForRemoval(entity);
+                        }
                     }
                 }
             }
