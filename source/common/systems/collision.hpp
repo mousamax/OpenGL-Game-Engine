@@ -62,8 +62,6 @@ namespace our
                     // compare with player position to check if it collides or not
                     if (glm::length(newPosition - playerPosition) < playerRadius + newRadius)
                     {
-
-                        std::cout << "collision" << std::endl;
                         // collision occurred
                         if (entity->tag == "coin")
                         {
@@ -73,7 +71,6 @@ namespace our
                         if (entity->tag == "finish")
                         {
                             our::GameMananger::gameOver = true;
-                            world->markForRemoval(entity);
                         }
                     }
                 }

@@ -24,20 +24,20 @@ namespace our
         void enter(Application* app){
             this->app = app;
         }
-
+        Entity* playerEntity = nullptr;
         void update(World * world, float deltaTime)
         {
-            Entity * playerEntity = nullptr;
-
-            for (auto entity : world->getEntities())
-            {
-                if (entity->name == "player")
+            if (!playerEntity)
+            {//search for the first time
+                for (auto entity : world->getEntities())
                 {
-                    playerEntity = entity;
-                    break;
+                    if (entity->name == "player")
+                    {
+                        playerEntity = entity;
+                        break;
+                    }
                 }
             }
-
             if (!playerEntity)
             {
                 std::cout << "Player entity not found" << std::endl;
@@ -96,9 +96,11 @@ namespace our
             // A & D moves the player left or right 
             if(app->getKeyboard().isPressed(GLFW_KEY_D)) position += right * (deltaTime * steeringVelocity);
             if(app->getKeyboard().isPressed(GLFW_KEY_A)) position -= right * (deltaTime * steeringVelocity);
-
+        }
+        void resetPosision()
+        {
+            playerEntity->localTransform.position = glm::vec3(0,0,5);
         }
     };
-
     
 } // namespace name

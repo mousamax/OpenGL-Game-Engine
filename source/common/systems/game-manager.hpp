@@ -68,8 +68,8 @@ namespace our
 					break;
 				}
 			}
-			if (score == 25)
-			{
+			if (score >= (difficulty)*5*0.80)
+			{//collected 80% of the coins
 				win = true;
 			}
 		}

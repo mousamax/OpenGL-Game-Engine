@@ -40,6 +40,8 @@ class Playstate: public our::State {
         cameraController.enter(getApp());
         gameManager.enter(getApp(),gameManager.play_state);
         playerMovementSystem.enter(getApp());
+        //create come coins 
+        createLevel(our::GameMananger::difficulty++);
     }
 
     void onDraw(double deltaTime) override {
@@ -54,12 +56,12 @@ class Playstate: public our::State {
         auto size = getApp()->getFrameBufferSize();
         renderer.render(&world, glm::ivec2(0, 0), size);
     }
-    void restartGame(int diffuclity)
+    void createLevel(int diffuclity)
     {
         for (int i = 0; i < diffuclity; i++)
         {
-            float z = 10 + (std::rand() % 70) * -1;
-            float x = -5 + (std::rand() % 5);
+            float z = 1 + (std::rand() % 90) * -1;
+            float x = -10 + (std::rand() % 20);
             instantiateCoin(glm::vec3(x,0,z));
         }
     }
@@ -76,22 +78,26 @@ class Playstate: public our::State {
 
         //ImGui::ShowDemoWindow();
         ImGui::Begin("Game Menu", false);
-        if (ImGui::Button("create coin")) {
-            restartGame(our::GameMananger::difficulty++);
-        }
+
         ImGui::Text("Turbo Snail!");
+        ImGui::Text("Score: %d", our::GameMananger::gm.score);
         if (our::GameMananger::gameOver)
         {
             if (our::GameMananger::win)
             {
                 ImGui::Text("WINNER!!");
             }
-            else ImGui::Text("GAME OVER!!");
+            else 
+                ImGui::Text("GAME OVER!!");
+
             if (ImGui::Button("Restart Game")) {
-                getApp()->changeState("main");
+                createLevel(our::GameMananger::difficulty++);
+                playerMovementSystem.resetPosision();
+                our::GameMananger::gameOver = false;
+                our::GameMananger::win = false;
+                our::GameMananger::score = 0;
             }
         }
-        ImGui::Text("Score: %d", our::GameMananger::gm.score);
 
         ImGui::End();
     }
