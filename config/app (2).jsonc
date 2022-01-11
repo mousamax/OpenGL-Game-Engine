@@ -2,7 +2,7 @@
     "start-scene": "menu",
     "window":
     {
-        "title":"Light Testing",
+        "title":"Turbo Snail",
         "size":{
             "width":1280,
             "height":720
@@ -358,7 +358,7 @@
                 ]
             },
             {
-                "position": [ 0, 0, -90 ],
+                "position": [ 0, 0, -100 ],
                 "scale": [ 10, 1, 2 ],
                 "tag": "finish",
                 "components": [
