@@ -17,3 +17,29 @@ The goals of this project are to learn how to:
 10. Implement a lighting model and support multiple lights of different types.
 11. Use the engine to implement a simple game.
 
+---
+
+> ### Sample ouput
+
+- mesh-test
+
+![mesh](/expected/mesh-test/monkey-2.png)
+![mesh](/expected/mesh-test/monkey-3.png)
+
+- sampler-test
+
+![sampler](/expected/sampler-test/test-2.png)
+![sampler](/expected/sampler-test/test-4.png)
+
+- texture-test
+
+![texture](/expected/texture-test/test-0.png)
+
+- transform-test
+
+![transform](/expected/transform-test/test-0.png)
+
+- entity-test and forward renderer
+
+![entity](/expected/entity-test/test-0.png)
+![entity](/expected/entity-test/test-1.png)
