@@ -23,13 +23,11 @@ The goals of this project are to learn how to:
 
 - mesh-test
 
-![mesh](/expected/mesh-test/monkey-2.png)
-![mesh](/expected/mesh-test/monkey-3.png)
+![mesh](/expected/mesh-test/monkey-2.png) ![mesh](/expected/mesh-test/monkey-3.png)
 
 - sampler-test
 
-![sampler](/expected/sampler-test/test-2.png)
-![sampler](/expected/sampler-test/test-4.png)
+![sampler](/expected/sampler-test/test-2.png) ![sampler](/expected/sampler-test/test-4.png)
 
 - texture-test
 
